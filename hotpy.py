@@ -1,7 +1,7 @@
 #!/usr/bin/python3.8
 
-#A autoloader for python scripts created by Ben Herbst
-#Use python3 hotpy.py [main script name] [optional directory] [optional sleep time in milisecounds]
+# a auto reloader for python scripts created by Ben Herbst
+# to use it write the following into a terminal: python3 hotpy.py [main script name] [optional directory] [optional sleep time in milisecounds]
 
 import time
 import subprocess
@@ -12,7 +12,7 @@ dir = ""
 dead = False
 
 
-#Get all files of directory
+# get all files of directory
 def getFiles():
     filenames = []
     for path, subdirs, files in os.walk(dir):
@@ -24,7 +24,7 @@ def getFiles():
     return filenames
 
 
-#Get the text of a array of filepaths in a array
+# get the text of a array of filepaths in a array
 def getDataOfFiles(filenames):
     dataOfFiles = []
     for file in filenames:
@@ -35,11 +35,11 @@ def getDataOfFiles(filenames):
 if __name__ == "__main__":
     if len(sys.argv) > 2:
         dir = sys.argv[2]
-    #Get all files
+    # get all files
     before_files = getFiles()
-    #Get text of all files
+    # get text of all files
     before_data = getDataOfFiles(before_files)
-    #Get main script via first arg
+    # get main script via first argument
     script = ""
     if len(sys.argv) > 1:
         if dir != "":
@@ -49,23 +49,24 @@ if __name__ == "__main__":
     else:
         print("No main script argument, use python3 hotpy.py [main script name]")
         exit()
-    #Get the sleep time of 3 arg
+    # get the sleep time of 3th argument if given
     if len(sys.argv) > 3:
         sleep = int(sys.argv[3])
     else:
+        # use default sleep time
         sleep = 100
     print("<-- Watching " + script + " -->\n")
     print("<-- Start -->\n")
-    #Start the main script
+    # start the main script
     pid = subprocess.Popen([sys.executable, script])
 
     while True:
-        #Look if main script runs
+        # look if main script runs
         poll = pid.poll()
         if poll is not None and dead is False:
             print("<-- End -->\n")
             dead = True
-        #Get the files and the files text another time, to look for changes
+        # get the files and the files text another time, to look for changes
         after_files = getFiles()
         after_data = getDataOfFiles(after_files)
         if after_files != before_files:
