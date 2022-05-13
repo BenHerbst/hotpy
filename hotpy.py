@@ -17,7 +17,7 @@ def getFiles():
     filenames = []
     for path, subdirs, files in os.walk(dir):
         for name in files:
-            #Set filter to .py .kv .glade, files like .png give a unicode error
+            # set filter to .py .kv .glade, files like .png give a unicode error
             if name.endswith(('.py', '.kv', '.glade')):
                 filenames.append(os.path.join(path, name))
 
@@ -42,10 +42,7 @@ if __name__ == "__main__":
     # get main script via first argument
     script = ""
     if len(sys.argv) > 1:
-        if dir != "":
-            script = dir + "/" + sys.argv[1]
-        else:
-            script = sys.argv[1]
+        script = sys.argv[1]
     else:
         print("No main script argument, use python3 hotpy.py [main script name]")
         exit()
